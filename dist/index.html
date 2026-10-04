@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#5138ee">
+  <meta name="theme-color" content="#e91e63">
   <meta name="description" content="A playful, beginner-friendly guide to building and publishing your very first website with Codex or Claude Code and GitHub.">
   <title>Your First Website Adventure</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235138ee'/%3E%3Cpath d='M32 51S11 39 11 24a11 11 0 0 1 20-6 11 11 0 0 1 22 6c0 15-21 27-21 27Z' fill='%23ffcf48'/%3E%3Cpath d='m25 27-6 5 6 5M39 27l6 5-6 5' fill='none' stroke='%235138ee' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23e91e63'/%3E%3Cpath d='M32 51S11 39 11 24a11 11 0 0 1 20-6 11 11 0 0 1 22 6c0 15-21 27-21 27Z' fill='%23ffd0dc'/%3E%3Cpath d='m25 27-6 5 6 5M39 27l6 5-6 5' fill='none' stroke='%23a8143b' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root {
-      --ink: #221b3a;
-      --muted: #665f79;
-      --paper: #fffdf8;
-      --violet: #5138ee;
-      --violet-dark: #3821c6;
-      --pink: #ff5d9e;
-      --yellow: #ffcf48;
-      --mint: #8ce8cf;
-      --line: #d9d2ee;
-      --shadow: 0 10px 0 rgba(34, 27, 58, .12);
+      --ink: #3a1023;
+      --muted: #78445b;
+      --paper: #fff8fb;
+      --violet: #e91e63;
+      --violet-dark: #a8143b;
+      --pink: #ff4f87;
+      --yellow: #ffd0dc;
+      --mint: #ff9fbb;
+      --line: #efc8d6;
+      --shadow: 0 10px 0 rgba(122, 20, 61, .14);
       --radius: 24px;
     }
 
@@ -31,10 +31,10 @@
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at 8% 5%, rgba(255, 93, 158, .18) 0 90px, transparent 91px),
-        radial-gradient(circle at 92% 14%, rgba(140, 232, 207, .30) 0 120px, transparent 121px),
-        linear-gradient(#f7f4ff 1px, transparent 1px),
-        linear-gradient(90deg, #f7f4ff 1px, transparent 1px),
+        radial-gradient(circle at 8% 5%, rgba(255, 79, 135, .20) 0 90px, transparent 91px),
+        radial-gradient(circle at 92% 14%, rgba(255, 159, 187, .30) 0 120px, transparent 121px),
+        linear-gradient(#fde4ec 1px, transparent 1px),
+        linear-gradient(90deg, #fde4ec 1px, transparent 1px),
         var(--paper);
       background-size: auto, auto, 28px 28px, 28px 28px, auto;
       font-family: "Nunito", system-ui, sans-serif;
@@ -51,7 +51,7 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(255, 253, 248, .94);
+      background: rgba(255, 248, 251, .94);
       border-bottom: 2px solid var(--ink);
       backdrop-filter: blur(12px);
     }
@@ -67,7 +67,7 @@
     }
     .progress-label { font-weight: 900; white-space: nowrap; }
     .progress-track { height: 13px; border: 2px solid var(--ink); border-radius: 99px; overflow: hidden; background: white; }
-    .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--yellow)); transition: width .35s ease; }
+    .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--violet-dark), var(--pink), var(--yellow)); transition: width .35s ease; }
     .progress-count { font-family: "DM Mono", monospace; font-size: .82rem; white-space: nowrap; }
 
     .hero {
@@ -130,7 +130,7 @@
     .hero-card::before, .hero-card::after { content: ""; position: absolute; border-radius: 50%; }
     .hero-card::before { width: 160px; height: 160px; right: -45px; top: -45px; background: var(--pink); }
     .hero-card::after { width: 90px; height: 90px; left: -22px; bottom: -25px; background: var(--mint); }
-    .window { position: relative; z-index: 1; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; background: #201a37; box-shadow: 5px 5px 0 rgba(0,0,0,.3); }
+    .window { position: relative; z-index: 1; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; background: #3a1023; box-shadow: 5px 5px 0 rgba(58,16,35,.3); }
     .window-top { display: flex; gap: 7px; padding: 11px; background: #fff; border-bottom: 2px solid var(--ink); }
     .dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--ink); background: var(--pink); }
     .dot:nth-child(2) { background: var(--yellow); }
@@ -148,20 +148,20 @@
 
     .lesson { position: relative; margin: 0 0 34px; padding: 32px; border: 2px solid var(--ink); border-radius: var(--radius); background: rgba(255,255,255,.96); box-shadow: var(--shadow); }
     .lesson::before { content: attr(data-step); position: absolute; left: -17px; top: 26px; display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); font-family: "Fredoka"; font-weight: 700; }
-    .lesson.done { border-color: var(--violet); background: #f8f6ff; }
+    .lesson.done { border-color: var(--violet); background: #fff1f6; }
     .lesson.done::after { content: "done!"; position: absolute; right: 22px; top: -15px; padding: 5px 12px; border: 2px solid var(--ink); background: var(--mint); font-weight: 900; transform: rotate(3deg); }
     .lesson h3 { font-size: 1.85rem; margin: 0 0 10px; }
     .lesson > p { color: var(--muted); }
     .tiny-title { margin: 24px 0 10px; color: var(--violet-dark); font-weight: 900; }
 
     .vocab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
-    .vocab { padding: 16px; border: 2px solid var(--line); border-radius: 16px; background: #faf9ff; }
+    .vocab { padding: 16px; border: 2px solid var(--line); border-radius: 16px; background: #fff2f7; }
     .vocab strong { display: block; color: var(--violet-dark); }
 
     .tool-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
     .tool-tab { min-height: 52px; border: 2px solid var(--ink); border-radius: 14px; background: white; color: var(--ink); cursor: pointer; font-weight: 900; }
     .tool-tab[aria-selected="true"] { background: var(--violet); color: white; box-shadow: 3px 3px 0 var(--ink); }
-    .tool-panel { padding: 22px; border: 2px solid var(--line); border-radius: 16px; background: #faf9ff; }
+    .tool-panel { padding: 22px; border: 2px solid var(--line); border-radius: 16px; background: #fff2f7; }
     .tool-panel[hidden] { display: none; }
 
     .steps-mini { padding-left: 24px; }
@@ -169,7 +169,7 @@
     .callout { margin: 20px 0; padding: 18px 20px; border-left: 6px solid var(--pink); background: #fff2f7; border-radius: 0 14px 14px 0; }
     .callout strong { color: #a81755; }
 
-    .prompt-box { position: relative; margin: 16px 0; padding: 22px 22px 18px; border: 2px solid var(--ink); border-radius: 16px; background: #201a37; color: #f9f7ff; font-family: "DM Mono", monospace; font-size: .85rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .prompt-box { position: relative; margin: 16px 0; padding: 22px 22px 18px; border: 2px solid var(--ink); border-radius: 16px; background: #3a1023; color: #fff7fa; font-family: "DM Mono", monospace; font-size: .85rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
     .copy { position: absolute; top: 10px; right: 10px; min-height: 36px; padding: 0 12px; border: 1px solid white; border-radius: 9px; background: var(--yellow); color: var(--ink); font-family: "Nunito", sans-serif; font-size: .78rem; font-weight: 900; cursor: pointer; }
     .prompt-box code { display: block; padding-top: 30px; font: inherit; }
 
@@ -183,7 +183,7 @@
     .check-row label { font-weight: 900; cursor: pointer; }
 
     .command-list { display: grid; gap: 8px; margin: 18px 0; }
-    .command { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 11px; background: #201a37; color: white; font-family: "DM Mono", monospace; font-size: .78rem; overflow-wrap: anywhere; }
+    .command { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 11px; background: #3a1023; color: white; font-family: "DM Mono", monospace; font-size: .78rem; overflow-wrap: anywhere; }
     .command button { flex: 0 0 auto; border: 0; border-radius: 7px; padding: 5px 9px; background: var(--yellow); font-size: .72rem; font-weight: 900; cursor: pointer; }
 
     .finish { margin-top: 70px; padding: 42px 30px; border: 3px solid var(--ink); border-radius: 28px; background: var(--yellow); text-align: center; box-shadow: 10px 10px 0 var(--pink); }
@@ -207,7 +207,7 @@
       display: grid;
       place-items: center;
       padding: 22px;
-      background: rgba(34, 27, 58, .38);
+      background: rgba(58, 16, 35, .42);
       backdrop-filter: blur(5px);
       opacity: 0;
       pointer-events: none;
@@ -220,7 +220,7 @@
       padding: 42px 30px 30px;
       border: 3px solid var(--ink);
       border-radius: 28px;
-      background: #fff8fc;
+      background: #fff4f8;
       box-shadow: 11px 11px 0 var(--pink);
       text-align: center;
       transform: translateY(18px) rotate(-1deg) scale(.96);
@@ -336,7 +336,7 @@
 Include:
 - a big welcome heading
 - three cards for my favorite things: [sunny mornings], [good music], and [little adventures]
-- bright [purple, pink, and yellow] colors
+- bright [pink, red, and blush] colors
 - a button that reveals a sweet surprise message
 
 Make it work well on phones and computers. Create index.html, styles.css, and script.js. Explain what you made in beginner-friendly language, then check that the page works.</code></div>
@@ -453,7 +453,7 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
         heart.textContent = symbols[i % symbols.length];
         heart.style.left = Math.random() * 96 + '%';
         heart.style.fontSize = (18 + Math.random() * 28) + 'px';
-        heart.style.color = i % 2 ? '#ff5d9e' : '#5138ee';
+        heart.style.color = i % 2 ? '#ff4f87' : '#a8143b';
         heart.style.animationDelay = Math.random() * .7 + 's';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 3600);
@@ -477,7 +477,7 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
     }
 
     function burst() {
-      const colors = ['#5138ee', '#ff5d9e', '#ffcf48', '#8ce8cf'];
+      const colors = ['#a8143b', '#e91e63', '#ff4f87', '#ff9fbb', '#ffd0dc'];
       confettiLayer.innerHTML = '';
       for (let i = 0; i < 55; i++) {
         const bit = document.createElement('i');
