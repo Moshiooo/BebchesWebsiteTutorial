@@ -186,6 +186,28 @@
     .command { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 11px; background: #3a1023; color: white; font-family: "DM Mono", monospace; font-size: .78rem; overflow-wrap: anywhere; }
     .command button { flex: 0 0 auto; border: 0; border-radius: 7px; padding: 5px 9px; background: var(--yellow); font-size: .72rem; font-weight: 900; cursor: pointer; }
 
+    .visual-walkthrough { margin: 26px 0 10px; }
+    .visual-walkthrough h4 { margin: 0 0 6px; font-family: "Fredoka", system-ui, sans-serif; font-size: 1.2rem; }
+    .visual-walkthrough > p { margin: 0 0 15px; color: var(--muted); font-size: .95rem; }
+    .visual-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .visual-step { position: relative; margin: 0; padding: 10px; border: 2px solid var(--ink); border-radius: 17px; background: #fff; box-shadow: 4px 4px 0 var(--yellow); }
+    .visual-step.wide { grid-column: 1 / -1; }
+    .visual-step button { display: block; width: 100%; padding: 0; border: 0; border-radius: 10px; background: #fff7fa; cursor: zoom-in; overflow: hidden; }
+    .visual-step img { display: block; width: 100%; height: 190px; object-fit: contain; background: #f6f8fa; }
+    .visual-step.wide img { height: 160px; }
+    .visual-number { position: absolute; z-index: 2; top: -12px; left: -12px; display: grid; place-items: center; width: 36px; height: 36px; border: 2px solid var(--ink); border-radius: 50%; background: var(--pink); color: white; font-family: "Fredoka"; font-weight: 700; box-shadow: 2px 2px 0 var(--ink); }
+    .visual-step figcaption { padding: 10px 4px 2px; font-size: .9rem; line-height: 1.4; color: var(--muted); }
+    .visual-step figcaption strong { color: var(--ink); }
+    .image-credit { margin-top: 12px !important; font-size: .8rem !important; }
+    .zoom-note { font-weight: 800; color: var(--violet-dark); }
+
+    .image-lightbox { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 24px; background: rgba(58, 16, 35, .82); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .2s ease, visibility .2s ease; }
+    .image-lightbox.show { opacity: 1; visibility: visible; pointer-events: auto; }
+    .image-lightbox-card { position: relative; width: min(1100px, 96vw); max-height: 90vh; padding: 18px; border: 3px solid var(--ink); border-radius: 22px; background: white; box-shadow: 10px 10px 0 var(--pink); overflow: auto; }
+    .image-lightbox img { display: block; width: 100%; height: auto; border-radius: 10px; }
+    .image-lightbox p { margin: 13px 48px 0 4px; font-weight: 800; }
+    .lightbox-close { position: absolute; z-index: 2; top: 9px; right: 9px; width: 42px; height: 42px; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); color: var(--ink); font-size: 1.35rem; font-weight: 900; cursor: pointer; }
+
     .finish { margin-top: 70px; padding: 42px 30px; border: 3px solid var(--ink); border-radius: 28px; background: var(--yellow); text-align: center; box-shadow: 10px 10px 0 var(--pink); }
     .finish h2 { font-size: clamp(2.4rem, 7vw, 4rem); margin-bottom: 12px; }
     .finish p { max-width: 620px; margin: 0 auto 24px; }
@@ -244,6 +266,9 @@
       .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 28px; }
       .hero-card { min-height: 290px; }
       .vocab-grid, .files, .resource-list { grid-template-columns: 1fr; }
+      .visual-grid { grid-template-columns: 1fr; }
+      .visual-step.wide { grid-column: auto; }
+      .visual-step img, .visual-step.wide img { height: 150px; }
       .lesson { padding: 28px 20px; }
       .lesson::before { left: -10px; top: -18px; }
       .tool-picker { grid-template-columns: 1fr; }
@@ -370,6 +395,28 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
         <li>Choose <strong>Public</strong>. Leave README, .gitignore, and license unchecked, then create it.</li>
         <li>Copy the repository URL from GitHub. It ends in <strong>.git</strong>.</li>
       </ol>
+      <div class="visual-walkthrough">
+        <h4>What you’ll see on GitHub</h4>
+        <p><span class="zoom-note">Tap any picture to make it bigger.</span> The orange outlines show exactly what to choose.</p>
+        <div class="visual-grid">
+          <figure class="visual-step">
+            <span class="visual-number">1</span>
+            <button class="zoom-image" data-caption="Choose the plus menu near your profile picture, then choose New repository."><img src="assets/github/new-repository.png" alt="GitHub plus menu with New repository outlined" loading="lazy"></button>
+            <figcaption><strong>Choose New repository.</strong> It lives inside the plus menu near your profile picture.</figcaption>
+          </figure>
+          <figure class="visual-step">
+            <span class="visual-number">2</span>
+            <button class="zoom-image" data-caption="Type my-first-website into the Repository name field."><img src="assets/github/repository-name.png" alt="GitHub repository creation form with the Repository name field outlined" loading="lazy"></button>
+            <figcaption><strong>Name the repository.</strong> Type <code>my-first-website</code> in this box.</figcaption>
+          </figure>
+          <figure class="visual-step wide">
+            <span class="visual-number">3</span>
+            <button class="zoom-image" data-caption="On the Quick setup page, choose the overlapping-squares icon to copy the HTTPS repository URL."><img src="assets/github/copy-repository-url.png" alt="GitHub Quick setup area with the copy repository URL button outlined" loading="lazy"></button>
+            <figcaption><strong>Copy the repository URL.</strong> Choose the overlapping-squares icon beside the HTTPS address.</figcaption>
+          </figure>
+        </div>
+        <p class="image-credit">Official interface images from <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository" target="_blank" rel="noreferrer">GitHub Docs</a>.</p>
+      </div>
       <p>Replace the example URL below with the one you copied, then give the whole prompt to your coding partner.</p>
       <div class="prompt-box"><button class="copy" data-copy="push-prompt">Copy prompt</button><code id="push-prompt">Connect this local repository to my empty GitHub repository at https://github.com/MY-USERNAME/my-first-website.git and push the main branch. If GitHub asks me to sign in or approve access, pause and tell me exactly what to click.</code></div>
       <div class="callout"><strong>Privacy pause:</strong> never put passwords, API keys, addresses, or private notes in a public repository.</div>
@@ -385,6 +432,23 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
         <li>Select branch <strong>main</strong>, folder <strong>/(root)</strong>, then choose <strong>Save</strong>.</li>
         <li>Wait a few minutes, refresh the Pages settings, and open your new link.</li>
       </ol>
+      <div class="visual-walkthrough">
+        <h4>Where the publishing controls live</h4>
+        <p>The orange outlines point to the controls you need.</p>
+        <div class="visual-grid">
+          <figure class="visual-step wide">
+            <span class="visual-number">1</span>
+            <button class="zoom-image" data-caption="Inside your repository, choose Settings in the row of tabs."><img src="assets/github/repository-settings.png" alt="GitHub repository navigation with Settings outlined" loading="lazy"></button>
+            <figcaption><strong>Choose Settings</strong> in your repository’s top navigation.</figcaption>
+          </figure>
+          <figure class="visual-step wide">
+            <span class="visual-number">2</span>
+            <button class="zoom-image" data-caption="After choosing Pages in the left sidebar and Deploy from a branch, open the Branch dropdown and choose main."><img src="assets/github/pages-branch.png" alt="GitHub Pages branch selector outlined beside the Save button" loading="lazy"></button>
+            <figcaption><strong>Choose the main branch.</strong> First choose Pages in the left sidebar and “Deploy from a branch,” then open this menu and select <code>main</code>.</figcaption>
+          </figure>
+        </div>
+        <p class="image-credit">Official interface images from <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" target="_blank" rel="noreferrer">GitHub Docs</a>.</p>
+      </div>
       <p>Your link will look like <strong>https://your-name.github.io/my-first-website/</strong>.</p>
       <div class="check-row"><input class="lesson-check" type="checkbox" id="check-7"><label for="check-7">My website is live on the internet!</label></div>
     </article>
@@ -408,6 +472,13 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
   </main>
 
   <div class="toast" role="status" aria-live="polite">Copied!</div>
+  <div class="image-lightbox" id="image-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Expanded GitHub screenshot">
+    <div class="image-lightbox-card">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close expanded screenshot">×</button>
+      <img id="lightbox-image" src="" alt="">
+      <p id="lightbox-caption"></p>
+    </div>
+  </div>
   <div class="love-note" id="love-note" role="dialog" aria-modal="true" aria-labelledby="love-title" aria-describedby="love-copy">
     <div class="love-card">
       <div class="love-heart" aria-hidden="true">♥</div>
@@ -425,6 +496,10 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
     const progressCount = document.querySelector('.progress-count');
     const toast = document.querySelector('.toast');
     const confettiLayer = document.querySelector('.confetti');
+    const imageLightbox = document.querySelector('#image-lightbox');
+    const lightboxImage = document.querySelector('#lightbox-image');
+    const lightboxCaption = document.querySelector('#lightbox-caption');
+    const lightboxClose = document.querySelector('#lightbox-close');
     const loveNote = document.querySelector('#love-note');
     const loveTitle = document.querySelector('#love-title');
     const loveCopy = document.querySelector('#love-copy');
@@ -530,6 +605,27 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
       });
     });
 
+    function closeImageLightbox() {
+      imageLightbox.classList.remove('show');
+      imageLightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+    }
+
+    document.querySelectorAll('.zoom-image').forEach(button => {
+      button.addEventListener('click', () => {
+        const preview = button.querySelector('img');
+        lightboxImage.src = preview.src;
+        lightboxImage.alt = preview.alt;
+        lightboxCaption.textContent = button.dataset.caption;
+        imageLightbox.classList.add('show');
+        imageLightbox.setAttribute('aria-hidden', 'false');
+        lightboxClose.focus();
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeImageLightbox);
+    imageLightbox.addEventListener('click', event => { if (event.target === imageLightbox) closeImageLightbox(); });
+
     const tabs = [...document.querySelectorAll('.tool-tab')];
     tabs.forEach(tab => tab.addEventListener('click', () => {
       tabs.forEach(item => {
@@ -542,7 +638,11 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
     document.getElementById('celebrate').addEventListener('click', burst);
     nextStepButton.addEventListener('click', closeLove);
     loveNote.addEventListener('click', event => { if (event.target === loveNote) closeLove(); });
-    document.addEventListener('keydown', event => { if (event.key === 'Escape' && loveNote.classList.contains('show')) closeLove(); });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      if (imageLightbox.classList.contains('show')) closeImageLightbox();
+      else if (loveNote.classList.contains('show')) closeLove();
+    });
     document.getElementById('reset').addEventListener('click', () => {
       checks.forEach(check => check.checked = false);
       updateProgress(false);
