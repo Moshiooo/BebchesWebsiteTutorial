@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5138ee">
+  <meta name="description" content="A playful, beginner-friendly guide to building and publishing your very first website with Codex or Claude Code and GitHub.">
+  <title>Your First Website Adventure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235138ee'/%3E%3Cpath d='M32 51S11 39 11 24a11 11 0 0 1 20-6 11 11 0 0 1 22 6c0 15-21 27-21 27Z' fill='%23ffcf48'/%3E%3Cpath d='m25 27-6 5 6 5M39 27l6 5-6 5' fill='none' stroke='%235138ee' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #221b3a;
+      --muted: #665f79;
+      --paper: #fffdf8;
+      --violet: #5138ee;
+      --violet-dark: #3821c6;
+      --pink: #ff5d9e;
+      --yellow: #ffcf48;
+      --mint: #8ce8cf;
+      --line: #d9d2ee;
+      --shadow: 0 10px 0 rgba(34, 27, 58, .12);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 5%, rgba(255, 93, 158, .18) 0 90px, transparent 91px),
+        radial-gradient(circle at 92% 14%, rgba(140, 232, 207, .30) 0 120px, transparent 121px),
+        linear-gradient(#f7f4ff 1px, transparent 1px),
+        linear-gradient(90deg, #f7f4ff 1px, transparent 1px),
+        var(--paper);
+      background-size: auto, auto, 28px 28px, 28px 28px, auto;
+      font-family: "Nunito", system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    a { color: var(--violet-dark); font-weight: 800; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 4px solid var(--yellow); outline-offset: 3px; }
+
+    .progress-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 2px solid var(--ink);
+      backdrop-filter: blur(12px);
+    }
+    .progress-inner {
+      max-width: 1080px;
+      margin: auto;
+      min-height: 58px;
+      padding: 10px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+    }
+    .progress-label { font-weight: 900; white-space: nowrap; }
+    .progress-track { height: 13px; border: 2px solid var(--ink); border-radius: 99px; overflow: hidden; background: white; }
+    .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--yellow)); transition: width .35s ease; }
+    .progress-count { font-family: "DM Mono", monospace; font-size: .82rem; white-space: nowrap; }
+
+    .hero {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 82px 22px 68px;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      align-items: center;
+      gap: 50px;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 13px;
+      border: 2px solid var(--ink);
+      border-radius: 99px;
+      background: var(--yellow);
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: rotate(-2deg);
+    }
+    h1, h2, h3 { font-family: "Fredoka", system-ui, sans-serif; line-height: 1.05; margin-top: 0; }
+    h1 { font-size: clamp(3.4rem, 8vw, 6.8rem); letter-spacing: -.055em; margin: 24px 0 22px; max-width: 820px; }
+    h1 em { color: var(--violet); font-style: normal; position: relative; white-space: nowrap; }
+    .hero-copy { max-width: 700px; font-size: 1.18rem; color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 20px;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      background: var(--violet);
+      color: white;
+      box-shadow: 4px 4px 0 var(--ink);
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .button:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .button.secondary { color: var(--ink); background: white; }
+
+    .hero-card {
+      position: relative;
+      min-height: 340px;
+      padding: 30px;
+      border: 3px solid var(--ink);
+      border-radius: 32px;
+      background: var(--violet);
+      color: white;
+      box-shadow: 12px 12px 0 var(--yellow);
+      transform: rotate(2deg);
+      overflow: hidden;
+    }
+    .hero-card::before, .hero-card::after { content: ""; position: absolute; border-radius: 50%; }
+    .hero-card::before { width: 160px; height: 160px; right: -45px; top: -45px; background: var(--pink); }
+    .hero-card::after { width: 90px; height: 90px; left: -22px; bottom: -25px; background: var(--mint); }
+    .window { position: relative; z-index: 1; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; background: #201a37; box-shadow: 5px 5px 0 rgba(0,0,0,.3); }
+    .window-top { display: flex; gap: 7px; padding: 11px; background: #fff; border-bottom: 2px solid var(--ink); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--ink); background: var(--pink); }
+    .dot:nth-child(2) { background: var(--yellow); }
+    .dot:nth-child(3) { background: var(--mint); }
+    .code-lines { padding: 22px; font-family: "DM Mono", monospace; font-size: .82rem; color: #fff; line-height: 1.9; }
+    .code-lines b { color: var(--yellow); font-weight: 500; }
+    .stamp { position: absolute; right: 17px; bottom: 17px; z-index: 2; padding: 9px 13px; border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); font-family: "Fredoka"; font-weight: 700; transform: rotate(-7deg); }
+
+    main { max-width: 920px; margin: auto; padding: 0 22px 100px; }
+    .promise { margin-bottom: 72px; padding: 27px 30px; border: 2px dashed var(--violet); border-radius: var(--radius); background: rgba(255,255,255,.8); text-align: center; font-size: 1.12rem; }
+    .promise strong { color: var(--violet); }
+    .section-heading { margin: 0 0 30px; }
+    .section-heading h2 { font-size: clamp(2.5rem, 7vw, 4.2rem); margin-bottom: 12px; }
+    .section-heading p { color: var(--muted); margin: 0; }
+
+    .lesson { position: relative; margin: 0 0 34px; padding: 32px; border: 2px solid var(--ink); border-radius: var(--radius); background: rgba(255,255,255,.96); box-shadow: var(--shadow); }
+    .lesson::before { content: attr(data-step); position: absolute; left: -17px; top: 26px; display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); font-family: "Fredoka"; font-weight: 700; }
+    .lesson.done { border-color: var(--violet); background: #f8f6ff; }
+    .lesson.done::after { content: "done!"; position: absolute; right: 22px; top: -15px; padding: 5px 12px; border: 2px solid var(--ink); background: var(--mint); font-weight: 900; transform: rotate(3deg); }
+    .lesson h3 { font-size: 1.85rem; margin: 0 0 10px; }
+    .lesson > p { color: var(--muted); }
+    .tiny-title { margin: 24px 0 10px; color: var(--violet-dark); font-weight: 900; }
+
+    .vocab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 22px; }
+    .vocab { padding: 16px; border: 2px solid var(--line); border-radius: 16px; background: #faf9ff; }
+    .vocab strong { display: block; color: var(--violet-dark); }
+
+    .tool-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+    .tool-tab { min-height: 52px; border: 2px solid var(--ink); border-radius: 14px; background: white; color: var(--ink); cursor: pointer; font-weight: 900; }
+    .tool-tab[aria-selected="true"] { background: var(--violet); color: white; box-shadow: 3px 3px 0 var(--ink); }
+    .tool-panel { padding: 22px; border: 2px solid var(--line); border-radius: 16px; background: #faf9ff; }
+    .tool-panel[hidden] { display: none; }
+
+    .steps-mini { padding-left: 24px; }
+    .steps-mini li { margin: 10px 0; padding-left: 4px; }
+    .callout { margin: 20px 0; padding: 18px 20px; border-left: 6px solid var(--pink); background: #fff2f7; border-radius: 0 14px 14px 0; }
+    .callout strong { color: #a81755; }
+
+    .prompt-box { position: relative; margin: 16px 0; padding: 22px 22px 18px; border: 2px solid var(--ink); border-radius: 16px; background: #201a37; color: #f9f7ff; font-family: "DM Mono", monospace; font-size: .85rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .copy { position: absolute; top: 10px; right: 10px; min-height: 36px; padding: 0 12px; border: 1px solid white; border-radius: 9px; background: var(--yellow); color: var(--ink); font-family: "Nunito", sans-serif; font-size: .78rem; font-weight: 900; cursor: pointer; }
+    .prompt-box code { display: block; padding-top: 30px; font: inherit; }
+
+    .files { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+    .file { padding: 17px 12px; border: 2px solid var(--ink); border-radius: 13px; text-align: center; background: white; font-family: "DM Mono", monospace; font-size: .82rem; }
+    .file::before { content: "●"; color: var(--pink); padding-right: 7px; }
+
+    .check-row { display: flex; align-items: center; gap: 13px; margin-top: 24px; padding-top: 22px; border-top: 2px dashed var(--line); }
+    .lesson-check { appearance: none; width: 27px; height: 27px; margin: 0; flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 8px; background: white; cursor: pointer; }
+    .lesson-check:checked { background: var(--violet); box-shadow: inset 0 0 0 5px white; }
+    .check-row label { font-weight: 900; cursor: pointer; }
+
+    .command-list { display: grid; gap: 8px; margin: 18px 0; }
+    .command { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 11px; background: #201a37; color: white; font-family: "DM Mono", monospace; font-size: .78rem; overflow-wrap: anywhere; }
+    .command button { flex: 0 0 auto; border: 0; border-radius: 7px; padding: 5px 9px; background: var(--yellow); font-size: .72rem; font-weight: 900; cursor: pointer; }
+
+    .finish { margin-top: 70px; padding: 42px 30px; border: 3px solid var(--ink); border-radius: 28px; background: var(--yellow); text-align: center; box-shadow: 10px 10px 0 var(--pink); }
+    .finish h2 { font-size: clamp(2.4rem, 7vw, 4rem); margin-bottom: 12px; }
+    .finish p { max-width: 620px; margin: 0 auto 24px; }
+    .finish .button { background: var(--ink); }
+
+    .resources { margin-top: 80px; }
+    .resources h2 { font-size: 2.2rem; }
+    .resource-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .resource { padding: 18px; border: 2px solid var(--line); border-radius: 14px; background: white; text-decoration: none; }
+    .resource span { display: block; color: var(--muted); font-weight: 600; font-size: .88rem; }
+    .reset { display: block; margin: 40px auto 0; border: 0; background: transparent; color: var(--muted); text-decoration: underline; cursor: pointer; }
+
+    .toast { position: fixed; right: 18px; bottom: 18px; z-index: 30; padding: 12px 17px; border: 2px solid var(--ink); border-radius: 12px; background: var(--mint); box-shadow: 4px 4px 0 var(--ink); font-weight: 900; transform: translateY(120px); transition: transform .25s ease; }
+    .toast.show { transform: translateY(0); }
+    .love-note {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: rgba(34, 27, 58, .38);
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .love-note.show { opacity: 1; pointer-events: auto; }
+    .love-card {
+      position: relative;
+      width: min(440px, 100%);
+      padding: 42px 30px 30px;
+      border: 3px solid var(--ink);
+      border-radius: 28px;
+      background: #fff8fc;
+      box-shadow: 11px 11px 0 var(--pink);
+      text-align: center;
+      transform: translateY(18px) rotate(-1deg) scale(.96);
+      transition: transform .3s cubic-bezier(.2,.8,.2,1.2);
+    }
+    .love-note.show .love-card { transform: translateY(0) rotate(-1deg) scale(1); }
+    .love-heart { font-size: 4.8rem; line-height: 1; animation: heartbeat .8s ease-in-out infinite alternate; }
+    .love-card h2 { margin: 14px 0 8px; font-size: 2.5rem; color: var(--violet); }
+    .love-card p { margin: 0 0 24px; color: var(--muted); }
+    .love-card .button { width: 100%; }
+    .floating-heart { position: fixed; z-index: 44; bottom: -40px; pointer-events: none; animation: float-heart 2.8s ease-out forwards; }
+    @keyframes heartbeat { to { transform: scale(1.12) rotate(4deg); } }
+    @keyframes float-heart { to { transform: translateY(-115vh) rotate(30deg); opacity: 0; } }
+    .confetti { position: fixed; inset: 0; z-index: 50; pointer-events: none; overflow: hidden; }
+    .confetti i { position: absolute; top: -20px; width: 12px; height: 20px; animation: fall 2.4s ease-in forwards; }
+    @keyframes fall { to { transform: translateY(110vh) rotate(760deg); } }
+
+    @media (max-width: 760px) {
+      .progress-inner { grid-template-columns: 1fr auto; }
+      .progress-track { grid-column: 1 / -1; grid-row: 2; }
+      .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 28px; }
+      .hero-card { min-height: 290px; }
+      .vocab-grid, .files, .resource-list { grid-template-columns: 1fr; }
+      .lesson { padding: 28px 20px; }
+      .lesson::before { left: -10px; top: -18px; }
+      .tool-picker { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(3rem, 16vw, 5rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-wrap" aria-label="Course progress">
+    <div class="progress-inner">
+      <span class="progress-label">Your adventure</span>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" aria-label="Lessons completed"><div class="progress-bar"></div></div>
+      <span class="progress-count">0 / 7 done</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div>
+      <span class="eyebrow">Made especially for you ♥</span>
+      <h1>Let’s make your <em>first website.</em></h1>
+      <p class="hero-copy">No coding experience? Perfect. You’ll tell an AI coding partner what you want, save the work in a GitHub repository, and put it on the internet—one tiny, friendly step at a time.</p>
+      <div class="hero-actions">
+        <a class="button" href="#lesson-1">Begin the adventure</a>
+        <a class="button secondary" href="#glossary">What do these words mean?</a>
+      </div>
+    </div>
+    <div class="hero-card" aria-label="A playful code window illustration">
+      <div class="window">
+        <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="code-lines">&lt;<b>h1</b>&gt;Hello, world!&lt;/<b>h1</b>&gt;<br>&lt;<b>p</b>&gt;I made this ✨&lt;/<b>p</b>&gt;<br><br><b>git</b> commit -m "I did it!"</div>
+      </div>
+      <span class="stamp">future web maker</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="promise">Today’s project: a cheerful <strong>“Things I Love”</strong> page with a title, three favorite things, colors you choose, and a surprise button. By the end, it will have its own link.</div>
+
+    <div class="section-heading">
+      <h2>Seven small steps</h2>
+      <p>Read, do, check the box. Nothing here can make your computer explode. Promise.</p>
+    </div>
+
+    <article class="lesson" id="lesson-1" data-step="1">
+      <h3>Meet the three helpers</h3>
+      <p>You don’t need to memorize these. Just know who does what.</p>
+      <div class="vocab-grid" id="glossary">
+        <div class="vocab"><strong>Codex / Claude Code</strong>Your coding partner. You describe the result; it writes and edits the files.</div>
+        <div class="vocab"><strong>Git</strong>The project’s memory. Each “commit” is a named save point.</div>
+        <div class="vocab"><strong>GitHub</strong>The online home for your repository—the folder containing your project and its history.</div>
+      </div>
+      <div class="callout"><strong>Good to know:</strong> a repository (people say “repo”) is just a project folder with superpowers.</div>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-1"><label for="check-1">These three make sense</label></div>
+    </article>
+
+    <article class="lesson" id="lesson-2" data-step="2">
+      <h3>Choose your coding partner</h3>
+      <p>Pick either path. They can both build the same project.</p>
+      <div class="tool-picker" role="tablist" aria-label="Choose a coding tool">
+        <button class="tool-tab" role="tab" aria-selected="true" aria-controls="codex-panel" id="codex-tab">Use Codex</button>
+        <button class="tool-tab" role="tab" aria-selected="false" aria-controls="claude-panel" id="claude-tab">Use Claude Code</button>
+      </div>
+      <div class="tool-panel" id="codex-panel" role="tabpanel" aria-labelledby="codex-tab">
+        <ol class="steps-mini">
+          <li>Open the Codex app and sign in.</li>
+          <li>Create a folder named <strong>my-first-website</strong> somewhere easy to find.</li>
+          <li>Choose that folder as your project in Codex, then start a new chat.</li>
+        </ol>
+      </div>
+      <div class="tool-panel" id="claude-panel" role="tabpanel" aria-labelledby="claude-tab" hidden>
+        <ol class="steps-mini">
+          <li><a href="https://code.claude.com/docs/en/getting-started" target="_blank" rel="noreferrer">Install Claude Code</a> and sign in.</li>
+          <li>Create a folder named <strong>my-first-website</strong> and open Terminal in that folder.</li>
+          <li>Type <code>claude</code>, press Enter, and follow the sign-in steps.</li>
+        </ol>
+      </div>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-2"><label for="check-2">My coding partner is open in my project folder</label></div>
+    </article>
+
+    <article class="lesson" id="lesson-3" data-step="3">
+      <h3>Ask for your website</h3>
+      <p>Copy this prompt into Codex or Claude Code. Change the words in brackets if you want—or use it exactly as written.</p>
+      <div class="prompt-box"><button class="copy" data-copy="build-prompt">Copy prompt</button><code id="build-prompt">Build a simple, cheerful website called “Things I Love.” Use plain HTML, CSS, and JavaScript so it can be published with GitHub Pages.
+
+Include:
+- a big welcome heading
+- three cards for my favorite things: [sunny mornings], [good music], and [little adventures]
+- bright [purple, pink, and yellow] colors
+- a button that reveals a sweet surprise message
+
+Make it work well on phones and computers. Create index.html, styles.css, and script.js. Explain what you made in beginner-friendly language, then check that the page works.</code></div>
+      <p class="tiny-title">You should see three new files:</p>
+      <div class="files"><div class="file">index.html</div><div class="file">styles.css</div><div class="file">script.js</div></div>
+      <div class="callout"><strong>Why three files?</strong> HTML holds the words, CSS makes them pretty, and JavaScript makes the button do something.</div>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-3"><label for="check-3">My three website files exist</label></div>
+    </article>
+
+    <article class="lesson" id="lesson-4" data-step="4">
+      <h3>Look, click, and tweak</h3>
+      <p>Ask your coding partner to show you the page. Click the surprise button and resize the window. Then make it feel like yours.</p>
+      <div class="prompt-box"><button class="copy" data-copy="preview-prompt">Copy prompt</button><code id="preview-prompt">Please preview my website for me. Check that the surprise button works and that the page looks good on a phone-sized screen. If you find a problem, fix it and explain the fix simply.</code></div>
+      <p>Want a change? Talk normally: “Make the title pink,” “Add my favorite movie,” or “The button feels too serious—make it playful.” Small requests are excellent requests.</p>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-4"><label for="check-4">I saw my page and made one change</label></div>
+    </article>
+
+    <article class="lesson" id="lesson-5" data-step="5">
+      <h3>Give the project a memory</h3>
+      <p>Now turn the folder into a Git repository and make the first commit. The easiest way is to ask your coding partner:</p>
+      <div class="prompt-box"><button class="copy" data-copy="git-prompt">Copy prompt</button><code id="git-prompt">Turn this project into a Git repository with the default branch named main. Add the website files and create the first commit with the message “Create my first website.” Do not publish anything yet. Tell me when it is done.</code></div>
+      <div class="callout"><strong>A commit is a save point, not a final decision.</strong> You can make as many as you like as the website changes.</div>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-5"><label for="check-5">My first commit is saved</label></div>
+    </article>
+
+    <article class="lesson" id="lesson-6" data-step="6">
+      <h3>Put the repository on GitHub</h3>
+      <ol class="steps-mini">
+        <li>Create a free account at <a href="https://github.com/signup" target="_blank" rel="noreferrer">GitHub</a>, or sign in.</li>
+        <li>Choose <strong>New repository</strong>. Name it <strong>my-first-website</strong>.</li>
+        <li>Choose <strong>Public</strong>. Leave README, .gitignore, and license unchecked, then create it.</li>
+        <li>Copy the repository URL from GitHub. It ends in <strong>.git</strong>.</li>
+      </ol>
+      <p>Replace the example URL below with the one you copied, then give the whole prompt to your coding partner.</p>
+      <div class="prompt-box"><button class="copy" data-copy="push-prompt">Copy prompt</button><code id="push-prompt">Connect this local repository to my empty GitHub repository at https://github.com/MY-USERNAME/my-first-website.git and push the main branch. If GitHub asks me to sign in or approve access, pause and tell me exactly what to click.</code></div>
+      <div class="callout"><strong>Privacy pause:</strong> never put passwords, API keys, addresses, or private notes in a public repository.</div>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-6"><label for="check-6">I can see my three files on GitHub</label></div>
+    </article>
+
+    <article class="lesson" id="lesson-7" data-step="7">
+      <h3>Publish with GitHub Pages</h3>
+      <ol class="steps-mini">
+        <li>Open your repository on GitHub and choose <strong>Settings</strong>.</li>
+        <li>In the left sidebar, choose <strong>Pages</strong>.</li>
+        <li>Under “Build and deployment,” set Source to <strong>Deploy from a branch</strong>.</li>
+        <li>Select branch <strong>main</strong>, folder <strong>/(root)</strong>, then choose <strong>Save</strong>.</li>
+        <li>Wait a few minutes, refresh the Pages settings, and open your new link.</li>
+      </ol>
+      <p>Your link will look like <strong>https://your-name.github.io/my-first-website/</strong>.</p>
+      <div class="check-row"><input class="lesson-check" type="checkbox" id="check-7"><label for="check-7">My website is live on the internet!</label></div>
+    </article>
+
+    <section class="finish" id="finish">
+      <h2>You made a real website.</h2>
+      <p>Not a pretend exercise. Not “almost coding.” A real project with files, history, a GitHub home, and a public link. I’m very proud of you. ♥</p>
+      <button class="button" id="celebrate">Celebrate again</button>
+    </section>
+
+    <section class="resources" aria-labelledby="resource-title">
+      <h2 id="resource-title">Official help, if you get stuck</h2>
+      <div class="resource-list">
+        <a class="resource" href="https://developers.openai.com/learn/codex" target="_blank" rel="noreferrer">OpenAI Codex guide<span>Current Codex learning resources</span></a>
+        <a class="resource" href="https://code.claude.com/docs/en/getting-started" target="_blank" rel="noreferrer">Claude Code setup<span>Installation and sign-in help</span></a>
+        <a class="resource" href="https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github" target="_blank" rel="noreferrer">Add local code to GitHub<span>The official repository workflow</span></a>
+        <a class="resource" href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noreferrer">Create a GitHub Pages site<span>Official publishing instructions</span></a>
+      </div>
+      <button class="reset" id="reset">Reset all checkboxes</button>
+    </section>
+  </main>
+
+  <div class="toast" role="status" aria-live="polite">Copied!</div>
+  <div class="love-note" id="love-note" role="dialog" aria-modal="true" aria-labelledby="love-title" aria-describedby="love-copy">
+    <div class="love-card">
+      <div class="love-heart" aria-hidden="true">♥</div>
+      <h2 id="love-title">Good job, sweetie!</h2>
+      <p id="love-copy">One more step done. Look at you go!</p>
+      <button class="button" id="next-step">On to the next step</button>
+    </div>
+  </div>
+  <div class="confetti" aria-hidden="true"></div>
+
+  <script>
+    const checks = [...document.querySelectorAll('.lesson-check')];
+    const progressBar = document.querySelector('.progress-bar');
+    const progressTrack = document.querySelector('.progress-track');
+    const progressCount = document.querySelector('.progress-count');
+    const toast = document.querySelector('.toast');
+    const confettiLayer = document.querySelector('.confetti');
+    const loveNote = document.querySelector('#love-note');
+    const loveTitle = document.querySelector('#love-title');
+    const loveCopy = document.querySelector('#love-copy');
+    const nextStepButton = document.querySelector('#next-step');
+    let celebrated = false;
+    let nextLesson = null;
+
+    const petNames = [
+      'Sweetie', 'Honey', 'Bebche', 'Zaiche', 'Princess', 'Obich',
+      'Sunshine', 'Baby', 'Lexi', 'Poopy', 'Beautiful', 'Gorgeous'
+    ];
+    const cheers = [
+      'One more step done. Look at you go!',
+      'You are absolutely crushing this.',
+      'That was perfect. I knew you could do it!',
+      'Tiny step, huge win. I’m proud of you!'
+    ];
+
+    function pick(items) { return items[Math.floor(Math.random() * items.length)]; }
+
+    function hearts() {
+      const symbols = ['♥', '♡', '💗', '💖'];
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'floating-heart';
+        heart.textContent = symbols[i % symbols.length];
+        heart.style.left = Math.random() * 96 + '%';
+        heart.style.fontSize = (18 + Math.random() * 28) + 'px';
+        heart.style.color = i % 2 ? '#ff5d9e' : '#5138ee';
+        heart.style.animationDelay = Math.random() * .7 + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3600);
+      }
+    }
+
+    function showLove(check) {
+      const lesson = check.closest('.lesson');
+      nextLesson = lesson.nextElementSibling?.classList.contains('lesson') ? lesson.nextElementSibling : document.querySelector('#finish');
+      loveTitle.textContent = `Good job, ${pick(petNames)}!`;
+      loveCopy.textContent = pick(cheers);
+      nextStepButton.textContent = nextLesson.id === 'finish' ? 'See your big finish' : 'On to the next step';
+      loveNote.classList.add('show');
+      nextStepButton.focus();
+      hearts();
+    }
+
+    function closeLove() {
+      loveNote.classList.remove('show');
+      nextLesson?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function burst() {
+      const colors = ['#5138ee', '#ff5d9e', '#ffcf48', '#8ce8cf'];
+      confettiLayer.innerHTML = '';
+      for (let i = 0; i < 55; i++) {
+        const bit = document.createElement('i');
+        bit.style.left = Math.random() * 100 + '%';
+        bit.style.background = colors[i % colors.length];
+        bit.style.animationDelay = Math.random() * .8 + 's';
+        bit.style.transform = `rotate(${Math.random() * 180}deg)`;
+        confettiLayer.appendChild(bit);
+      }
+      setTimeout(() => confettiLayer.innerHTML = '', 3400);
+    }
+
+    function updateProgress(allowCelebration = true) {
+      const complete = checks.filter(check => check.checked).length;
+      const percent = complete / checks.length * 100;
+      progressBar.style.width = percent + '%';
+      progressTrack.setAttribute('aria-valuenow', complete);
+      progressCount.textContent = `${complete} / ${checks.length} done`;
+      checks.forEach(check => check.closest('.lesson').classList.toggle('done', check.checked));
+      localStorage.setItem('first-site-progress', JSON.stringify(checks.map(check => check.checked)));
+      if (complete === checks.length && allowCelebration && !celebrated) {
+        celebrated = true;
+        burst();
+        document.querySelector('#finish').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      if (complete < checks.length) celebrated = false;
+    }
+
+    const saved = JSON.parse(localStorage.getItem('first-site-progress') || '[]');
+    checks.forEach((check, index) => {
+      check.checked = Boolean(saved[index]);
+      check.addEventListener('change', () => {
+        updateProgress(true);
+        if (check.checked) showLove(check);
+      });
+    });
+    updateProgress(false);
+
+    document.querySelectorAll('.copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        const text = document.getElementById(button.dataset.copy).textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          toast.textContent = 'Copied—ready to paste!';
+        } catch {
+          toast.textContent = 'Select the text and copy it manually.';
+        }
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    });
+
+    const tabs = [...document.querySelectorAll('.tool-tab')];
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(item => {
+        const active = item === tab;
+        item.setAttribute('aria-selected', active);
+        document.getElementById(item.getAttribute('aria-controls')).hidden = !active;
+      });
+    }));
+
+    document.getElementById('celebrate').addEventListener('click', burst);
+    nextStepButton.addEventListener('click', closeLove);
+    loveNote.addEventListener('click', event => { if (event.target === loveNote) closeLove(); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && loveNote.classList.contains('show')) closeLove(); });
+    document.getElementById('reset').addEventListener('click', () => {
+      checks.forEach(check => check.checked = false);
+      updateProgress(false);
+      toast.textContent = 'Fresh start!';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1800);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
