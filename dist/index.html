@@ -140,13 +140,25 @@
     .stamp { position: absolute; right: 17px; bottom: 17px; z-index: 2; padding: 9px 13px; border: 2px solid var(--ink); background: var(--yellow); color: var(--ink); font-family: "Fredoka"; font-weight: 700; transform: rotate(-7deg); }
 
     main { max-width: 920px; margin: auto; padding: 0 22px 100px; }
+    body.course-mode .hero,
+    body.course-mode .promise,
+    body.course-mode .section-heading { display: none; }
+    body.course-mode main { padding-top: 34px; min-height: calc(100vh - 58px); }
+    .course-toolbar { display: none; align-items: center; justify-content: space-between; gap: 14px; margin: 0 0 28px; padding: 13px 16px; border: 2px solid var(--ink); border-radius: 16px; background: rgba(255,255,255,.96); box-shadow: 4px 4px 0 var(--yellow); }
+    body.course-mode:not(.finish-mode) .course-toolbar { display: flex; }
+    .course-home { border: 0; background: transparent; color: var(--violet-dark); font-weight: 900; cursor: pointer; }
+    .course-current { flex: 1; text-align: center; font-family: "Fredoka", system-ui, sans-serif; font-weight: 700; }
+    .step-picker { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .84rem; font-weight: 800; }
+    .step-picker select { min-height: 40px; padding: 0 34px 0 11px; border: 2px solid var(--ink); border-radius: 10px; background: white; color: var(--ink); font: inherit; cursor: pointer; }
     .promise { margin-bottom: 72px; padding: 27px 30px; border: 2px dashed var(--violet); border-radius: var(--radius); background: rgba(255,255,255,.8); text-align: center; font-size: 1.12rem; }
     .promise strong { color: var(--violet); }
     .section-heading { margin: 0 0 30px; }
     .section-heading h2 { font-size: clamp(2.5rem, 7vw, 4.2rem); margin-bottom: 12px; }
     .section-heading p { color: var(--muted); margin: 0; }
 
-    .lesson { position: relative; margin: 0 0 34px; padding: 32px; border: 2px solid var(--ink); border-radius: var(--radius); background: rgba(255,255,255,.96); box-shadow: var(--shadow); }
+    .lesson { position: relative; display: none; margin: 0 0 34px; padding: 38px 38px 30px; border: 2px solid var(--ink); border-radius: var(--radius); background: rgba(255,255,255,.96); box-shadow: var(--shadow); }
+    .lesson.active { display: block; animation: page-in .32s ease both; }
+    @keyframes page-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     .lesson::before { content: attr(data-step); position: absolute; left: -17px; top: 26px; display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); font-family: "Fredoka"; font-weight: 700; }
     .lesson.done { border-color: var(--violet); background: #fff1f6; }
     .lesson.done::after { content: "done!"; position: absolute; right: 22px; top: -15px; padding: 5px 12px; border: 2px solid var(--ink); background: var(--mint); font-weight: 900; transform: rotate(3deg); }
@@ -181,6 +193,12 @@
     .lesson-check { appearance: none; width: 27px; height: 27px; margin: 0; flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 8px; background: white; cursor: pointer; }
     .lesson-check:checked { background: var(--violet); box-shadow: inset 0 0 0 5px white; }
     .check-row label { font-weight: 900; cursor: pointer; }
+    .lesson-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 28px; padding-top: 22px; border-top: 2px solid var(--line); }
+    .lesson-nav .button { min-height: 46px; }
+    .lesson-nav .back-button { justify-self: start; background: white; color: var(--ink); }
+    .lesson-nav .next-button { justify-self: end; }
+    .lesson-nav .next-button:disabled { opacity: .42; cursor: not-allowed; transform: none; box-shadow: 4px 4px 0 var(--ink); }
+    .lesson-position { color: var(--muted); font-family: "DM Mono", monospace; font-size: .8rem; white-space: nowrap; }
 
     .command-list { display: grid; gap: 8px; margin: 18px 0; }
     .command { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 11px; background: #3a1023; color: white; font-family: "DM Mono", monospace; font-size: .78rem; overflow-wrap: anywhere; }
@@ -208,12 +226,17 @@
     .image-lightbox p { margin: 13px 48px 0 4px; font-weight: 800; }
     .lightbox-close { position: absolute; z-index: 2; top: 9px; right: 9px; width: 42px; height: 42px; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); color: var(--ink); font-size: 1.35rem; font-weight: 900; cursor: pointer; }
 
-    .finish { margin-top: 70px; padding: 42px 30px; border: 3px solid var(--ink); border-radius: 28px; background: var(--yellow); text-align: center; box-shadow: 10px 10px 0 var(--pink); }
+    .finish { display: none; margin: 30px 0 0; padding: 58px 30px; border: 3px solid var(--ink); border-radius: 28px; background: var(--yellow); text-align: center; box-shadow: 10px 10px 0 var(--pink); }
+    .finish.active { display: block; animation: page-in .35s ease both; }
     .finish h2 { font-size: clamp(2.4rem, 7vw, 4rem); margin-bottom: 12px; }
     .finish p { max-width: 620px; margin: 0 auto 24px; }
     .finish .button { background: var(--ink); }
+    .final-hearts { margin-bottom: 12px; color: var(--pink); font-family: "Fredoka", system-ui, sans-serif; font-size: clamp(3.5rem, 12vw, 7rem); letter-spacing: .08em; line-height: 1; text-shadow: 5px 5px 0 white; }
+    .finish-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .finish-actions .secondary { background: white; color: var(--ink); }
 
-    .resources { margin-top: 80px; }
+    .resources { display: none; margin-top: 70px; }
+    body.finish-mode .resources { display: block; }
     .resources h2 { font-size: 2.2rem; }
     .resource-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .resource { padding: 18px; border: 2px solid var(--line); border-radius: 14px; background: white; text-decoration: none; }
@@ -232,10 +255,11 @@
       background: rgba(58, 16, 35, .42);
       backdrop-filter: blur(5px);
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-      transition: opacity .25s ease;
+      transition: opacity .25s ease, visibility .25s ease;
     }
-    .love-note.show { opacity: 1; pointer-events: auto; }
+    .love-note.show { opacity: 1; visibility: visible; pointer-events: auto; }
     .love-card {
       position: relative;
       width: min(440px, 100%);
@@ -256,9 +280,9 @@
     .floating-heart { position: fixed; z-index: 44; bottom: -40px; pointer-events: none; animation: float-heart 2.8s ease-out forwards; }
     @keyframes heartbeat { to { transform: scale(1.12) rotate(4deg); } }
     @keyframes float-heart { to { transform: translateY(-115vh) rotate(30deg); opacity: 0; } }
-    .confetti { position: fixed; inset: 0; z-index: 50; pointer-events: none; overflow: hidden; }
-    .confetti i { position: absolute; top: -20px; width: 12px; height: 20px; animation: fall 2.4s ease-in forwards; }
-    @keyframes fall { to { transform: translateY(110vh) rotate(760deg); } }
+    .heart-burst { position: fixed; inset: 0; z-index: 50; pointer-events: none; overflow: hidden; }
+    .heart-burst i { position: absolute; top: -60px; font-style: normal; line-height: 1; animation: heart-fall 3.2s ease-in forwards; filter: drop-shadow(2px 3px 0 rgba(58,16,35,.12)); }
+    @keyframes heart-fall { 15% { opacity: 1; } to { transform: translateY(115vh) rotate(540deg); opacity: .15; } }
 
     @media (max-width: 760px) {
       .progress-inner { grid-template-columns: 1fr auto; }
@@ -271,6 +295,11 @@
       .visual-step img, .visual-step.wide img { height: 150px; }
       .lesson { padding: 28px 20px; }
       .lesson::before { left: -10px; top: -18px; }
+      .course-toolbar { align-items: stretch; flex-wrap: wrap; }
+      .course-current { order: -1; flex-basis: 100%; }
+      .step-picker label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .lesson-nav { grid-template-columns: 1fr 1fr; }
+      .lesson-position { grid-column: 1 / -1; grid-row: 1; text-align: center; }
       .tool-picker { grid-template-columns: 1fr; }
       h1 { font-size: clamp(3rem, 16vw, 5rem); }
     }
@@ -296,8 +325,8 @@
       <h1>Let’s make your <em>first website.</em></h1>
       <p class="hero-copy">No coding experience? Perfect. You’ll tell an AI coding partner what you want, save the work in a GitHub repository, and put it on the internet—one tiny, friendly step at a time.</p>
       <div class="hero-actions">
-        <a class="button" href="#lesson-1">Begin the adventure</a>
-        <a class="button secondary" href="#glossary">What do these words mean?</a>
+        <a class="button start-adventure" href="#step-1">Begin the adventure</a>
+        <a class="button secondary start-adventure" href="#step-1">What do these words mean?</a>
       </div>
     </div>
     <div class="hero-card" aria-label="A playful code window illustration">
@@ -316,6 +345,23 @@
       <h2>Seven small steps</h2>
       <p>Read, do, check the box. Nothing here can make your computer explode. Promise.</p>
     </div>
+
+    <nav class="course-toolbar" aria-label="Course navigation">
+      <button class="course-home" id="course-home">♥ Start page</button>
+      <span class="course-current" id="course-current">Step 1 · Meet the three helpers</span>
+      <div class="step-picker">
+        <label for="step-select">All steps</label>
+        <select id="step-select" aria-label="Go to a lesson">
+          <option value="1">Step 1</option>
+          <option value="2">Step 2</option>
+          <option value="3">Step 3</option>
+          <option value="4">Step 4</option>
+          <option value="5">Step 5</option>
+          <option value="6">Step 6</option>
+          <option value="7">Step 7</option>
+        </select>
+      </div>
+    </nav>
 
     <article class="lesson" id="lesson-1" data-step="1">
       <h3>Meet the three helpers</h3>
@@ -454,9 +500,13 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
     </article>
 
     <section class="finish" id="finish">
+      <div class="final-hearts" aria-hidden="true">♥ ♡ ♥</div>
       <h2>You made a real website.</h2>
       <p>Not a pretend exercise. Not “almost coding.” A real project with files, history, a GitHub home, and a public link. I’m very proud of you. ♥</p>
-      <button class="button" id="celebrate">Celebrate again</button>
+      <div class="finish-actions">
+        <button class="button secondary" id="finish-back">Back to step 7</button>
+        <button class="button" id="celebrate">More hearts!</button>
+      </div>
     </section>
 
     <section class="resources" aria-labelledby="resource-title">
@@ -479,7 +529,7 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
       <p id="lightbox-caption"></p>
     </div>
   </div>
-  <div class="love-note" id="love-note" role="dialog" aria-modal="true" aria-labelledby="love-title" aria-describedby="love-copy">
+  <div class="love-note" id="love-note" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="love-title" aria-describedby="love-copy">
     <div class="love-card">
       <div class="love-heart" aria-hidden="true">♥</div>
       <h2 id="love-title">Good job, sweetie!</h2>
@@ -487,15 +537,20 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
       <button class="button" id="next-step">On to the next step</button>
     </div>
   </div>
-  <div class="confetti" aria-hidden="true"></div>
+  <div class="heart-burst" aria-hidden="true"></div>
 
   <script>
     const checks = [...document.querySelectorAll('.lesson-check')];
+    const lessons = [...document.querySelectorAll('.lesson')];
+    const finishPage = document.querySelector('#finish');
+    const resources = document.querySelector('.resources');
+    const courseCurrent = document.querySelector('#course-current');
+    const stepSelect = document.querySelector('#step-select');
     const progressBar = document.querySelector('.progress-bar');
     const progressTrack = document.querySelector('.progress-track');
     const progressCount = document.querySelector('.progress-count');
     const toast = document.querySelector('.toast');
-    const confettiLayer = document.querySelector('.confetti');
+    const heartBurstLayer = document.querySelector('.heart-burst');
     const imageLightbox = document.querySelector('#image-lightbox');
     const lightboxImage = document.querySelector('#lightbox-image');
     const lightboxCaption = document.querySelector('#lightbox-caption');
@@ -504,8 +559,8 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
     const loveTitle = document.querySelector('#love-title');
     const loveCopy = document.querySelector('#love-copy');
     const nextStepButton = document.querySelector('#next-step');
-    let celebrated = false;
-    let nextLesson = null;
+    let nextView = 'step-1';
+    let currentView = 'welcome';
 
     const petNames = [
       'Sweetie', 'Honey', 'Bebche', 'Zaiche', 'Princess', 'Obich',
@@ -537,35 +592,41 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
 
     function showLove(check) {
       const lesson = check.closest('.lesson');
-      nextLesson = lesson.nextElementSibling?.classList.contains('lesson') ? lesson.nextElementSibling : document.querySelector('#finish');
+      const step = Number(lesson.dataset.step);
+      nextView = step === lessons.length ? 'finish' : `step-${step + 1}`;
       loveTitle.textContent = `Good job, ${pick(petNames)}!`;
       loveCopy.textContent = pick(cheers);
-      nextStepButton.textContent = nextLesson.id === 'finish' ? 'See your big finish' : 'On to the next step';
+      nextStepButton.textContent = nextView === 'finish' ? 'See your big finish' : 'On to the next step';
       loveNote.classList.add('show');
+      loveNote.setAttribute('aria-hidden', 'false');
       nextStepButton.focus();
       hearts();
     }
 
-    function closeLove() {
+    function hideLove() {
       loveNote.classList.remove('show');
-      nextLesson?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      loveNote.setAttribute('aria-hidden', 'true');
     }
 
-    function burst() {
+    function heartShower() {
       const colors = ['#a8143b', '#e91e63', '#ff4f87', '#ff9fbb', '#ffd0dc'];
-      confettiLayer.innerHTML = '';
-      for (let i = 0; i < 55; i++) {
-        const bit = document.createElement('i');
-        bit.style.left = Math.random() * 100 + '%';
-        bit.style.background = colors[i % colors.length];
-        bit.style.animationDelay = Math.random() * .8 + 's';
-        bit.style.transform = `rotate(${Math.random() * 180}deg)`;
-        confettiLayer.appendChild(bit);
+      const symbols = ['♥', '♡', '💗', '💖', '💕'];
+      heartBurstLayer.innerHTML = '';
+      for (let i = 0; i < 58; i++) {
+        const heart = document.createElement('i');
+        heart.textContent = symbols[i % symbols.length];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.color = colors[i % colors.length];
+        heart.style.fontSize = (16 + Math.random() * 30) + 'px';
+        heart.style.animationDelay = Math.random() * 1.1 + 's';
+        heart.style.animationDuration = (2.5 + Math.random() * 1.7) + 's';
+        heart.style.transform = `rotate(${Math.random() * 180}deg)`;
+        heartBurstLayer.appendChild(heart);
       }
-      setTimeout(() => confettiLayer.innerHTML = '', 3400);
+      setTimeout(() => heartBurstLayer.innerHTML = '', 4800);
     }
 
-    function updateProgress(allowCelebration = true) {
+    function updateProgress() {
       const complete = checks.filter(check => check.checked).length;
       const percent = complete / checks.length * 100;
       progressBar.style.width = percent + '%';
@@ -573,23 +634,95 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
       progressCount.textContent = `${complete} / ${checks.length} done`;
       checks.forEach(check => check.closest('.lesson').classList.toggle('done', check.checked));
       localStorage.setItem('first-site-progress', JSON.stringify(checks.map(check => check.checked)));
-      if (complete === checks.length && allowCelebration && !celebrated) {
-        celebrated = true;
-        burst();
-        document.querySelector('#finish').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      lessons.forEach((lesson, index) => {
+        const nextButton = lesson.querySelector('.next-button');
+        if (nextButton) nextButton.disabled = !checks[index].checked;
+      });
+    }
+
+    const lessonTitles = lessons.map(lesson => lesson.querySelector('h3').textContent);
+    finishPage.querySelector('h2').setAttribute('tabindex', '-1');
+
+    lessons.forEach((lesson, index) => {
+      lesson.querySelector('h3').setAttribute('tabindex', '-1');
+      const nav = document.createElement('div');
+      nav.className = 'lesson-nav';
+      nav.innerHTML = `
+        <button class="button back-button" type="button">Back</button>
+        <span class="lesson-position">Step ${index + 1} of ${lessons.length}</span>
+        <button class="button next-button" type="button">${index === lessons.length - 1 ? 'Finish adventure' : 'Continue'}</button>`;
+      lesson.appendChild(nav);
+      nav.querySelector('.back-button').addEventListener('click', () => showView(index === 0 ? 'welcome' : `step-${index}`));
+      nav.querySelector('.next-button').addEventListener('click', () => showView(index === lessons.length - 1 ? 'finish' : `step-${index + 2}`));
+    });
+
+    function viewFromLocation() {
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'celebrate' || hash === 'finish') return 'finish';
+      const match = hash.match(/^(?:step-|lesson-)([1-7])$/);
+      if (match) return `step-${match[1]}`;
+      return null;
+    }
+
+    function showView(view, historyMode = 'push') {
+      if (view !== 'welcome' && view !== 'finish' && !/^step-[1-7]$/.test(view)) view = 'welcome';
+      currentView = view;
+      lessons.forEach(lesson => lesson.classList.remove('active'));
+      finishPage.classList.remove('active');
+      document.body.classList.toggle('course-mode', view !== 'welcome');
+      document.body.classList.toggle('finish-mode', view === 'finish');
+
+      let hash = '#welcome';
+      let focusTarget = document.querySelector('h1');
+      if (view.startsWith('step-')) {
+        const index = Number(view.split('-')[1]) - 1;
+        const lesson = lessons[index];
+        lesson.classList.add('active');
+        stepSelect.value = String(index + 1);
+        courseCurrent.textContent = `Step ${index + 1} · ${lessonTitles[index]}`;
+        hash = `#step-${index + 1}`;
+        focusTarget = lesson.querySelector('h3');
+        localStorage.setItem('first-site-current', view);
+      } else if (view === 'finish') {
+        finishPage.classList.add('active');
+        hash = '#celebrate';
+        focusTarget = finishPage.querySelector('h2');
+        localStorage.setItem('first-site-current', view);
+        heartShower();
+      } else {
+        localStorage.setItem('first-site-current', 'welcome');
       }
-      if (complete < checks.length) celebrated = false;
+
+      if (historyMode === 'push') history.pushState({ view }, '', hash);
+      if (historyMode === 'replace') history.replaceState({ view }, '', hash);
+      window.scrollTo({ top: 0, behavior: historyMode === 'none' ? 'auto' : 'smooth' });
+      setTimeout(() => focusTarget?.focus({ preventScroll: true }), 50);
     }
 
     const saved = JSON.parse(localStorage.getItem('first-site-progress') || '[]');
     checks.forEach((check, index) => {
       check.checked = Boolean(saved[index]);
       check.addEventListener('change', () => {
-        updateProgress(true);
+        updateProgress();
         if (check.checked) showLove(check);
       });
     });
-    updateProgress(false);
+    updateProgress();
+
+    document.querySelectorAll('.start-adventure').forEach(link => link.addEventListener('click', event => {
+      event.preventDefault();
+      showView('step-1');
+    }));
+    document.querySelector('#course-home').addEventListener('click', () => showView('welcome'));
+    stepSelect.addEventListener('change', () => showView(`step-${stepSelect.value}`));
+    window.addEventListener('popstate', event => showView(event.state?.view || viewFromLocation() || 'welcome', 'none'));
+    window.addEventListener('hashchange', () => {
+      const view = viewFromLocation();
+      if (view && view !== currentView) showView(view, 'none');
+    });
+
+    const firstView = viewFromLocation() || localStorage.getItem('first-site-current') || 'welcome';
+    showView(firstView, 'replace');
 
     document.querySelectorAll('.copy').forEach(button => {
       button.addEventListener('click', async () => {
@@ -635,21 +768,26 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
       });
     }));
 
-    document.getElementById('celebrate').addEventListener('click', burst);
-    nextStepButton.addEventListener('click', closeLove);
-    loveNote.addEventListener('click', event => { if (event.target === loveNote) closeLove(); });
+    document.getElementById('celebrate').addEventListener('click', heartShower);
+    document.getElementById('finish-back').addEventListener('click', () => showView('step-7'));
+    nextStepButton.addEventListener('click', () => {
+      hideLove();
+      showView(nextView);
+    });
+    loveNote.addEventListener('click', event => { if (event.target === loveNote) hideLove(); });
     document.addEventListener('keydown', event => {
       if (event.key !== 'Escape') return;
       if (imageLightbox.classList.contains('show')) closeImageLightbox();
-      else if (loveNote.classList.contains('show')) closeLove();
+      else if (loveNote.classList.contains('show')) hideLove();
     });
     document.getElementById('reset').addEventListener('click', () => {
       checks.forEach(check => check.checked = false);
-      updateProgress(false);
+      updateProgress();
+      localStorage.removeItem('first-site-current');
       toast.textContent = 'Fresh start!';
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 1800);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      showView('welcome');
     });
   </script>
 </body>
