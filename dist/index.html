@@ -505,6 +505,19 @@ Make it work well on phones and computers. Create index.html, styles.css, and sc
         <p class="image-credit">Official interface images from <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site" target="_blank" rel="noreferrer">GitHub Docs</a>.</p>
       </div>
       <div class="callout"><strong>Where your link lives.</strong> Your link will look like <strong>https://your-name.github.io/my-first-website/</strong>. If the <strong>Visit site</strong> button is not there yet, wait a few minutes and refresh the Pages settings. GitHub can take up to 10 minutes to finish publishing.</div>
+      <div class="visual-walkthrough">
+        <h4>When you want to update it later</h4>
+        <p>Changing the files on your computer does not change the live website yet. Every time you finish making changes, you need to save them with a commit and push them to GitHub.</p>
+        <p class="tiny-title">You can ask your coding partner to walk you through it:</p>
+        <div class="prompt-box"><button class="copy" data-copy="update-prompt">Copy prompt</button><code id="update-prompt">I changed my website and want to update the live GitHub Pages version. Show me how to open the Terminal in this project folder. Give me the exact Git commands one at a time, tell me where to paste each one, and wait for me after every command. Help me add, commit, and push the changes to the main branch. If I need to sign in or approve anything, pause and tell me exactly what to click.</code></div>
+        <p class="tiny-title">Or open the Terminal in your project folder and enter these one at a time:</p>
+        <div class="command-list" aria-label="Commands for updating the website">
+          <div class="command"><code>git add .</code></div>
+          <div class="command"><code>git commit -m "Update my website"</code></div>
+          <div class="command"><code>git push origin main</code></div>
+        </div>
+        <div class="callout"><strong>What those commands do:</strong> the first gathers your changes, the second creates a save point, and the third sends everything to GitHub. GitHub Pages will update the live website automatically after the push.</div>
+      </div>
       <p class="support-note">One last little click my baby, im already so proud of you.</p>
       <div class="check-row"><input class="lesson-check" type="checkbox" id="check-7"><label for="check-7">My website is live on the internet!</label></div>
     </article>
